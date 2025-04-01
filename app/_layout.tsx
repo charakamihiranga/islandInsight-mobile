@@ -1,11 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView, StyleSheet, View } from 'react-native';
 import * as SplashScreen from 'expo-splash-screen';
 import { useCallback, useEffect, useState } from "react";
+import { Stack } from "expo-router";
 
 SplashScreen.preventAutoHideAsync();
 
-export default function App() {
+export default function RootLayout() {
   const [appIsReady, setAppIsReady] = useState(false);
 
   useEffect(() => {
@@ -28,15 +29,20 @@ export default function App() {
     }
   }, [appIsReady]);
 
+  useEffect(() => {
+    if (appIsReady) {
+      onLayoutRootView();
+    }
+  }, [appIsReady]);
+
   if (!appIsReady) {
-    return null;
+    return null; // Ensure the splash screen stays visible until ready
   }
 
   return (
-      <View style={styles.container} onLayout={onLayoutRootView}>
-        <Text>Open up App.tsx to start working on your app!</Text>
-        <StatusBar style="auto" />
-      </View>
+      <SafeAreaView style={{ flex: 1 }} onLayout={onLayoutRootView}>
+        <Stack screenOptions={{ headerShown: false }} />
+      </SafeAreaView>
   );
 }
 

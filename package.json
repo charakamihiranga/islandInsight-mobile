@@ -1,7 +1,7 @@
 {
   "name": "islandinsight-mobile",
   "version": "1.0.0",
-  "main": "index.ts",
+  "main": "expo-router/entry",
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
@@ -15,7 +15,9 @@
     "expo-splash-screen": "~0.29.22",
     "expo-status-bar": "~2.0.1",
     "react": "18.3.1",
-    "react-native": "0.76.7"
+    "react-native": "0.76.7",
+    "expo-navigation-bar": "~4.0.9",
+    "expo-router": "~4.0.19"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
