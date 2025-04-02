@@ -12,15 +12,18 @@
     "@expo-google-fonts/poppins": "^0.3.0",
     "expo": "~52.0.41",
     "expo-font": "~13.0.4",
+    "expo-navigation-bar": "~4.0.9",
+    "expo-router": "~4.0.19",
     "expo-splash-screen": "~0.29.22",
     "expo-status-bar": "~2.0.1",
+    "firebase": "^11.6.0",
+    "firebase-admin": "^13.2.0",
     "react": "18.3.1",
-    "react-native": "0.76.7",
-    "expo-navigation-bar": "~4.0.9",
-    "expo-router": "~4.0.19"
+    "react-native": "0.76.7"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
+    "@types/firebase": "^2.4.32",
     "@types/react": "~18.3.12",
     "typescript": "^5.3.3"
   },
