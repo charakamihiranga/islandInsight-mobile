@@ -2,7 +2,9 @@ import { SafeAreaView } from 'react-native';
 import * as SplashScreen from 'expo-splash-screen';
 import { useCallback, useEffect, useState } from "react";
 import { Stack } from "expo-router";
+import * as Font from 'expo-font';
 
+// Prevent splash screen from hiding automatically
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
@@ -11,7 +13,16 @@ export default function RootLayout() {
   useEffect(() => {
     async function prepare() {
       try {
-        await new Promise(resolve => setTimeout(resolve, 1000));
+        // Load fonts
+        await Font.loadAsync({
+          'Poppins-Regular': require('../assets/fonts/Poppins-Regular.ttf'),
+          'Poppins-SemiBold': require('../assets/fonts/Poppins-SemiBold.ttf'),
+          'Poppins-Bold': require('../assets/fonts/Poppins-Bold.ttf'),
+        });
+
+        // Reduce splash screen time to 500ms
+        await new Promise(resolve => setTimeout(resolve, 500));
+
       } catch (e) {
         console.warn(e);
       } finally {
@@ -35,7 +46,7 @@ export default function RootLayout() {
   }, [appIsReady]);
 
   if (!appIsReady) {
-    return null; // Ensure the splash screen stays visible until ready
+    return null; // Keep splash screen visible
   }
 
   return (
@@ -44,4 +55,3 @@ export default function RootLayout() {
       </SafeAreaView>
   );
 }
-

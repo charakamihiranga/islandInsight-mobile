@@ -64,25 +64,22 @@ const styles = StyleSheet.create({
         marginTop: 8,
     },
     header: {
-        fontSize: 24,
-        fontWeight: "700",
+        fontSize: 22,
         color: "#222",
-        marginBottom: 6,
         marginLeft: 12,
-        fontFamily: 'Poppins',
+        fontFamily: 'Poppins-Bold',
     },
     subheader: {
-        fontSize: 16,
+        fontSize: 14,
         color: "#666",
-        fontWeight: "400",
+        fontFamily: "Poppins-Regular",
         marginLeft: 12
     },
     sectionTitle: {
         fontSize: 18,
-        fontWeight: "600",
-        marginBottom: 0,
         color: "#222",
-        marginLeft: 12
+        marginLeft: 12,
+        fontFamily: 'Poppins-SemiBold',
     },
     loaderContainer: {
         flex: 1,
