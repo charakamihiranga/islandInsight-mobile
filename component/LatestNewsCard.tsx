@@ -3,9 +3,9 @@ import { TouchableOpacity, View, Text, Image, StyleSheet, Dimensions } from "rea
 import News from "../model/News";
 import { getPublishedTime, getReadTime } from "../util/util";
 
-export default function NewsCard({ news }: { news: News }) {
+export default function NewsCard({ news, onPress }: { news: News, onPress: () => void }) {
     return (
-        <TouchableOpacity style={styles.card}>
+        <TouchableOpacity style={styles.card} onPress={onPress}>
             <Image source={{ uri: news.imgLink }} style={styles.image} resizeMode="cover" />
             <View style={styles.overlay}>
                 <Text style={styles.timeAgo}>{getPublishedTime(news.date, news.time)}</Text>
