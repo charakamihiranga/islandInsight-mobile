@@ -1,8 +1,9 @@
-import { SafeAreaView } from 'react-native';
+import {Alert, SafeAreaView} from 'react-native';
 import * as SplashScreen from 'expo-splash-screen';
 import { useCallback, useEffect, useState } from "react";
 import { Stack } from "expo-router";
 import * as Font from 'expo-font';
+import Header from "../component/Header";
 
 // Prevent splash screen from hiding automatically
 SplashScreen.preventAutoHideAsync();
@@ -18,6 +19,7 @@ export default function RootLayout() {
           'Poppins-Regular': require('../assets/fonts/Poppins-Regular.ttf'),
           'Poppins-SemiBold': require('../assets/fonts/Poppins-SemiBold.ttf'),
           'Poppins-Bold': require('../assets/fonts/Poppins-Bold.ttf'),
+          'Pacifico-Regular': require('../assets/fonts/Pacifico-Regular.ttf'),
         });
 
         // Reduce splash screen time to 500ms
@@ -51,6 +53,7 @@ export default function RootLayout() {
 
   return (
       <SafeAreaView style={{ flex: 1 }} onLayout={onLayoutRootView}>
+        <Header  onProfilePress={() => Alert.alert('Profile pressed!')} />
         <Stack screenOptions={{ headerShown: false }} />
       </SafeAreaView>
   );
