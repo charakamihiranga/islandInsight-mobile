@@ -100,3 +100,60 @@ export async function getBusinessNews(): Promise<CategorizedNews[]> {
     }
 }
 
+export async function getTechNews(): Promise<CategorizedNews[]> {
+    try {
+        const response = await fetch(
+            `https://newsapi.org/v2/everything?q=technology&apiKey=${NEWS_API_KEY}`
+        );
+        const data = await response.json();
+
+        if (data.status === "ok" && Array.isArray(data.articles)) {
+            return data.articles.map(
+                (article: any) =>
+                    new CategorizedNews(
+                        article.author || "Unknown",
+                        article.title || "No Title",
+                        article.description || "No Description",
+                        article.url || "#",
+                        article.urlToImage || "",
+                        article.publishedAt || "",
+                        article.content || "No Content"
+                    )
+            );
+        } else {
+            return [];
+        }
+    } catch (error) {
+        console.error("Error fetching tech news:", error);
+        return [];
+    }
+}
+
+export async function getSportNews(): Promise<CategorizedNews[]> {
+    try {
+        const response = await fetch(
+            `https://newsapi.org/v2/everything?q=sport&apiKey=${NEWS_API_KEY}`
+        );
+        const data = await response.json();
+
+        if (data.status === "ok" && Array.isArray(data.articles)) {
+            return data.articles.map(
+                (article: any) =>
+                    new CategorizedNews(
+                        article.author || "Unknown",
+                        article.title || "No Title",
+                        article.description || "No Description",
+                        article.url || "#",
+                        article.urlToImage || "",
+                        article.publishedAt || "",
+                        article.content || "No Content"
+                    )
+            );
+        } else {
+            return [];
+        }
+    } catch (error) {
+        console.error("Error fetching sport news:", error);
+        return [];
+    }
+}

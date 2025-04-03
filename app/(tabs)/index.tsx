@@ -26,9 +26,17 @@ function Index() {
 
     if (loading) {
         return (
-            <View style={styles.loaderContainer}>
-                <ActivityIndicator size="large" color="red" />
+            <View style={styles.container}>
+                <View style={styles.headerContainer}>
+                    <Text style={styles.header}>Discover Your Interests</Text>
+                    <Text style={styles.subheader}>What's happening near you</Text>
+                </View>
+                <View style={styles.loaderContainer}>
+
+                    <ActivityIndicator size="large" color="red" />
+                </View>
             </View>
+
         );
     }
 
@@ -37,7 +45,7 @@ function Index() {
             <View style={styles.container}>
                 <View style={styles.headerContainer}>
                     <Text style={styles.header}>Discover Your Interests</Text>
-                    <Text style={styles.subheader}>Browse Categories to Stay Informed</Text>
+                    <Text style={styles.subheader}>What's happening near you</Text>
                 </View>
                 <LatestNewsCardGrid news={latestNews} />
                 <View style={styles.headerContainer}>

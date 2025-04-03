@@ -22,8 +22,15 @@ function Business() {
 
     if (loading) {
         return (
-            <View style={styles.fullScreenContainer}>
-                <ActivityIndicator size="large" color="red" />
+            <View style={styles.container}>
+                <View style={styles.headerContainer}>
+                    <Text style={styles.header}>Latest Business News</Text>
+                    <Text style={styles.subheader}>Your guide to the business world</Text>
+                </View>
+                <View style={styles.loaderContainer}>
+
+                    <ActivityIndicator size="large" color="red" />
+                </View>
             </View>
         );
     }
@@ -33,6 +40,7 @@ function Business() {
             <View style={styles.container}>
                 <View style={styles.headerContainer}>
                     <Text style={styles.header}>Latest Business News</Text>
+                    <Text style={styles.subheader}>Your guide to the business world</Text>
                 </View>
                 <BusinessNewsList news={businessNews} />
             </View>
@@ -40,19 +48,13 @@ function Business() {
     );
 }
 
-const { height, width } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
-    fullScreenContainer: {
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: 'white',
-        zIndex: 10
+    loaderContainer: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        padding: 16
     },
     safeArea: {
         flex: 1,
