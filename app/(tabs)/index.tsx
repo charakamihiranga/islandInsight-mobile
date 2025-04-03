@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { ActivityIndicator, FlatList, Text, View, StyleSheet, SafeAreaView } from "react-native";
 import News from "../../model/News";
-import {getAllNews, getLatestNews} from "../../repository/newsRepository";
+import {getAllLocalNews, getLatestNews} from "../../repository/newsRepository";
 import LatestNewsCardGrid from "../../component/LatestNewsCardGrid";
 import NewsCardGrid from "../../component/NewsCardGrid";
 
@@ -14,7 +14,7 @@ function Index() {
     useEffect(() => {
         setLoading(true);
 
-        Promise.all([getLatestNews(), getAllNews()])
+        Promise.all([getLatestNews(), getAllLocalNews()])
             .then(([latestNewsData, allNewsData]) => {
                 setLatestNews(latestNewsData);
                 setNews(allNewsData);

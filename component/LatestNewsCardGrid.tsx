@@ -1,18 +1,21 @@
 import News from "../model/News";
-import {Alert, FlatList, StyleSheet, View} from "react-native";
+import { Alert, FlatList, StyleSheet, View } from "react-native";
 import LatestNewsCard from "./LatestNewsCard";
 
 function LatestNewsCardGrid({ news }: { news: News[] }) {
     return (
         <View style={styles.container}>
             <FlatList
-                data={news}
+                data={[...news].reverse()}
                 keyExtractor={(item) => item.id.toString()}
-                renderItem={({ item }) => <LatestNewsCard news={item} onPress={
-                    () => {
-                        Alert.alert("News ID: ", `ID: ${item.id}`)
-                    }
-                } />}
+                renderItem={({ item }) => (
+                    <LatestNewsCard
+                        news={item}
+                        onPress={() => {
+                            Alert.alert("News ID:", `ID: ${item.id}`);
+                        }}
+                    />
+                )}
                 horizontal
                 showsHorizontalScrollIndicator={false}
                 contentContainerStyle={styles.list}
@@ -28,13 +31,6 @@ const styles = StyleSheet.create({
     container: {
         marginVertical: 16,
     },
-    sectionTitle: {
-        fontSize: 20,
-        fontWeight: "700",
-        marginBottom: 12,
-        marginHorizontal: 16,
-        color: "#222",
-    },
     list: {
         paddingLeft: 16,
         paddingRight: 8,
@@ -42,7 +38,7 @@ const styles = StyleSheet.create({
     },
     card: {
         width: 280,
-    }
+    },
 });
 
 export default LatestNewsCardGrid;

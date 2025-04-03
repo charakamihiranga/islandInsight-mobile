@@ -36,7 +36,7 @@ export function getLatestNews(): Promise<News[]>{
     });
 }
 
-export function getAllNews(): Promise<News[]> {
+export function getAllLocalNews(): Promise<News[]> {
     return new Promise((resolve, reject) => {
         onValue(
             newsRef,

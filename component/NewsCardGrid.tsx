@@ -6,7 +6,7 @@ import NewsCard from './NewsCard';
 function NewsCardGrid ({ news }: { news: News[] }) {
     return (
         <FlatList
-            data={news}
+            data={[...news].reverse().slice(2)}
             keyExtractor={(item) => item.id.toString()}
             numColumns={2}
             renderItem={({ item, index }) => <NewsCard item={item} onPress={() => {
