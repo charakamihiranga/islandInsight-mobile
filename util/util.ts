@@ -41,3 +41,17 @@ export const getReadTime = (content: string | null): string => {
 
     return `${minutes} ${minutes === 1 ? 'min' : 'mins'} read`;
 };
+
+export const getCategorizedPublishedTime = (dateTime: string) => {
+    const publishedDateTime = new Date(dateTime);
+    const now = new Date();
+    const diffMs = now.getTime() - publishedDateTime.getTime();
+    const diffMins = Math.floor(diffMs / (1000 * 60));
+    const diffHours = Math.floor(diffMins / 60);
+    const diffDays = Math.floor(diffHours / 24);
+
+    if (diffDays > 0) return `${diffDays} day${diffDays > 1 ? "s" : ""} ago`;
+    if (diffHours > 0) return `${diffHours} hour${diffHours > 1 ? "s" : ""} ago`;
+    if (diffMins > 0) return `${diffMins} minute${diffMins > 1 ? "s" : ""} ago`;
+    return "Just now";
+}
