@@ -35,3 +35,36 @@ export function getLatestNews(): Promise<News[]>{
         );
     });
 }
+
+export function getAllNews(): Promise<News[]> {
+    return new Promise((resolve, reject) => {
+        onValue(
+            newsRef,
+            (snapshot) => {
+                const data = snapshot.val();
+                if (data) {
+                    const newsArray = Object.entries(data).map(([key, value]: [string, any]) =>
+                        new News(
+                            parseInt(key),
+                            value.agency,
+                            value.agencyLogoLink,
+                            value.date,
+                            value.imgLink,
+                            value.link,
+                            value.postContent,
+                            value.time,
+                            value.title
+                        )
+                    );
+                    resolve(newsArray);
+                } else {
+                    resolve([]);
+                }
+            },
+            (error) => {
+                reject(error);
+            },
+            { onlyOnce: true }
+        );
+    });
+}

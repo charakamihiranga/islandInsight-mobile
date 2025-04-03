@@ -1,19 +1,28 @@
 import React, { useEffect, useState } from "react";
 import { ActivityIndicator, FlatList, Text, View, StyleSheet, SafeAreaView } from "react-native";
 import News from "../../model/News";
-import { getLatestNews } from "../../repository/newsRepository";
+import {getAllNews, getLatestNews} from "../../repository/newsRepository";
 import LatestNewsCardGrid from "../../component/LatestNewsCardGrid";
+import NewsCardGrid from "../../component/NewsCardGrid";
 
 function Index() {
     const [latestNews, setLatestNews] = useState<News[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
+    const [news, setNews] = useState<News[]>([]);
+
 
     useEffect(() => {
-        getLatestNews()
-            .then((data) => setLatestNews(data))
+        setLoading(true);
+
+        Promise.all([getLatestNews(), getAllNews()])
+            .then(([latestNewsData, allNewsData]) => {
+                setLatestNews(latestNewsData);
+                setNews(allNewsData);
+            })
             .catch((err) => console.error(err))
             .finally(() => setLoading(false));
     }, []);
+
 
     if (loading) {
         return (
@@ -31,6 +40,10 @@ function Index() {
                     <Text style={styles.subheader}>Browse Categories to Stay Informed</Text>
                 </View>
                 <LatestNewsCardGrid news={latestNews} />
+                <View style={styles.headerContainer}>
+                    <Text style={styles.sectionTitle}>Latest of the day</Text>
+                </View>
+                <NewsCardGrid news={news}/>
             </View>
         </SafeAreaView>
     );
@@ -67,8 +80,9 @@ const styles = StyleSheet.create({
     sectionTitle: {
         fontSize: 18,
         fontWeight: "600",
-        marginBottom: 16,
+        marginBottom: 0,
         color: "#222",
+        marginLeft: 12
     },
     loaderContainer: {
         flex: 1,

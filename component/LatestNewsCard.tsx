@@ -23,7 +23,7 @@ export default function NewsCard({ news, onPress }: { news: News, onPress: () =>
 // Responsive sizing based on screen width
 const width = Dimensions.get("window").width;
 const isSmallDevice = width < 375;
-const cardSize = isSmallDevice ? width * 0.55 : width * 0.6;
+const cardSize = isSmallDevice ? width * 0.4 : width * 0.45;
 
 const styles = StyleSheet.create({
     card: {
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
         justifyContent: "center",
     },
     title: {
-        fontSize: isSmallDevice ? 10 : 12,
+        fontSize: isSmallDevice ? 8 : 10,
         fontWeight: "600",
         color: "#222",
         lineHeight: 16,
