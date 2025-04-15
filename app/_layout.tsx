@@ -51,7 +51,7 @@ export default function RootLayout() {
 
   // Hide header instantly when pathname updates
   useEffect(() => {
-    setShowHeader(pathname !== '/screens/signin');
+    setShowHeader(pathname !== '/screens/signin' && pathname !== '/screens/signup');
   }, [pathname]);
 
   if (!appIsReady) {
@@ -60,9 +60,7 @@ export default function RootLayout() {
 
   return (
       <SafeAreaView style={{ flex: 1 }} onLayout={onLayoutRootView}>
-        { showHeader && (
-            <Header onProfilePress={() => router.navigate('/screens/signin')} />
-        )}
+        <Header  onProfilePress={() => router.navigate('/screens/signin')} showHeader={showHeader} />
         <Stack screenOptions={{ headerShown: false }}>
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
           <Stack.Screen

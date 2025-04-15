@@ -1,7 +1,9 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
-const Header = ({ onProfilePress }: { onProfilePress: () => void }) => {
+const Header = ({ onProfilePress, showHeader }: { onProfilePress: () => void, showHeader: boolean }) => {
+    if (!showHeader) return null;
+
     return (
         <View style={styles.container}>
             <View style={styles.logoContainer}>
@@ -13,6 +15,7 @@ const Header = ({ onProfilePress }: { onProfilePress: () => void }) => {
         </View>
     );
 };
+
 
 const styles = StyleSheet.create({
     container: {

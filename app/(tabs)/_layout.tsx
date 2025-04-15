@@ -5,6 +5,7 @@ import colors from "../../constants/colors";
 
 export default function TabLayout() {
     return (
+
         <Tabs
             screenOptions={{
                 headerShown: false,
