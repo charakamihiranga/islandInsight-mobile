@@ -1,7 +1,7 @@
-import {Alert, SafeAreaView} from 'react-native';
+import { Alert, SafeAreaView } from 'react-native';
 import * as SplashScreen from 'expo-splash-screen';
 import { useCallback, useEffect, useState } from "react";
-import { Stack } from "expo-router";
+import { router, Stack, usePathname } from "expo-router";
 import * as Font from 'expo-font';
 import Header from "../component/Header";
 
@@ -10,6 +10,8 @@ SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const [appIsReady, setAppIsReady] = useState(false);
+  const pathname = usePathname();
+  const [showHeader, setShowHeader] = useState(false);
 
   useEffect(() => {
     async function prepare() {
@@ -22,7 +24,7 @@ export default function RootLayout() {
           'Pacifico-Regular': require('../assets/fonts/Pacifico-Regular.ttf'),
         });
 
-        // Reduce splash screen time to 500ms
+        // Delay splash screen slightly
         await new Promise(resolve => setTimeout(resolve, 500));
 
       } catch (e) {
@@ -47,14 +49,36 @@ export default function RootLayout() {
     }
   }, [appIsReady]);
 
+  // Hide header instantly when pathname updates
+  useEffect(() => {
+    setShowHeader(pathname !== '/screens/signin');
+  }, [pathname]);
+
   if (!appIsReady) {
-    return null; // Keep splash screen visible
+    return null;
   }
 
   return (
       <SafeAreaView style={{ flex: 1 }} onLayout={onLayoutRootView}>
-        <Header  onProfilePress={() => Alert.alert('Profile pressed!')} />
-        <Stack screenOptions={{ headerShown: false }} />
+        { showHeader && (
+            <Header onProfilePress={() => router.navigate('/screens/signin')} />
+        )}
+        <Stack screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen
+              name={'screens/signin'}
+              options={{
+                title: 'Sign In',
+                headerTitleAlign: 'center',
+                headerTitleStyle: {
+                  fontSize: 15,
+                  fontWeight: 'bold',
+                  fontFamily: 'Poppins-Regular',
+                },
+              }}
+          />
+        </Stack>
+
       </SafeAreaView>
   );
 }
