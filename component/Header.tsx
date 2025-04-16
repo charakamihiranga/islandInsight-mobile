@@ -4,6 +4,7 @@ import { useAuth } from "../context/AuthContext";
 import { Feather } from '@expo/vector-icons';
 import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
 import {logout} from "../services/auth-service";
+import {router} from "expo-router";
 
 const Header = ({ onProfilePress, showHeader }: { onProfilePress: () => void, showHeader: boolean }) => {
     const { currentUser } = useAuth();
@@ -59,7 +60,7 @@ const Header = ({ onProfilePress, showHeader }: { onProfilePress: () => void, sh
     return (
         <View style={styles.container}>
             <View style={styles.logoContainer}>
-                <Text style={styles.logo}>IslandInsight</Text>
+                <Text style={styles.logo} onPress={() => router.push('/')}>IslandInsight</Text>
             </View>
             <TouchableOpacity style={styles.profileButton} onPress={handleProfilePress}>
                 {currentUser ? (
