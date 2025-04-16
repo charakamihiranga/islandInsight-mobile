@@ -1,15 +1,36 @@
 import React, { useState } from 'react';
-import { Text, View, StyleSheet, TouchableOpacity, TextInput, Image } from "react-native";
+import {Text, View, StyleSheet, TouchableOpacity, TextInput, Image, Alert} from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { MaterialIcons } from '@expo/vector-icons';
+import {useAuth} from "../../context/AuthContext";
+import {router} from "expo-router";
 
 function Signup() {
+    const {signup , signInWithGoogle } = useAuth();
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+
+    const handleSignUp = async () => {
+       if (password !== confirmPassword) {
+           Alert.alert('Passwords do not match!');
+           return;
+       }
+
+       try {
+           await signup(email, password, name);
+           router.push("/");
+       } catch (e) {
+           console.error(e)
+           Alert.alert('Error creating account!');
+
+       }
+    }
+    
 
     return (
         <View style={styles.container}>
@@ -24,7 +45,6 @@ function Signup() {
                     Stay informed, share your voice, and connect with a community that cares.
                 </Text>
 
-                {/* Input Fields */}
                 <View style={styles.inputContainer}>
                     <TextInput
                         style={styles.input}
@@ -81,7 +101,7 @@ function Signup() {
                         </TouchableOpacity>
                     </View>
 
-                    <TouchableOpacity style={styles.signUpButton}>
+                    <TouchableOpacity style={styles.signUpButton} onPress={handleSignUp}>
                         <Text style={styles.signUpButtonText}>SIGN UP</Text>
                     </TouchableOpacity>
 
@@ -91,8 +111,10 @@ function Signup() {
                         <View style={styles.divider} />
                     </View>
 
-                    <TouchableOpacity style={styles.googleButton}>
-                        <View style={styles.googleButtonContent}>
+                    <TouchableOpacity style={styles.googleButton} onPress={() => {
+                        Alert.alert('google sign clicked')
+                    }}>
+                        <View style={styles.googleButtonContent} >
                             <Image
                                 source={{ uri: 'https://developers.google.com/identity/images/g-logo.png' }}
                                 style={styles.googleIcon}

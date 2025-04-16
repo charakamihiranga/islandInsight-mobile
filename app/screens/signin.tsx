@@ -1,13 +1,25 @@
 import React, {useState} from 'react';
-import {Text, View, StyleSheet, TouchableOpacity, TextInput} from "react-native";
+import {Text, View, StyleSheet, TouchableOpacity, TextInput, Alert} from "react-native";
 import {StatusBar} from "expo-status-bar";
 import { MaterialIcons } from '@expo/vector-icons';
 import {router} from "expo-router";
+import {useAuth} from "../../context/AuthContext";
 
 function Signin() {
+    const auth = useAuth();
+    const {login} = useAuth();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
+
+    const handleSignIn = async () => {
+        try {
+            await login(email, password);
+            router.push("/");
+        } catch (e) {
+            Alert.alert('Invalid credentials. Please try again later');
+        }
+    }
 
     return (
         <View style={styles.container}>
@@ -48,19 +60,16 @@ function Signin() {
                         </TouchableOpacity>
                     </View>
 
-                    {/* Sign In Button */}
-                    <TouchableOpacity style={styles.signInButton}>
+                    <TouchableOpacity style={styles.signInButton} onPress={handleSignIn}>
                         <Text style={styles.signInButtonText}>SIGN IN</Text>
                     </TouchableOpacity>
 
-                    {/* Or Create Account with enhanced dividers */}
                     <View style={styles.createAccountContainer}>
                         <View style={styles.divider} />
                         <Text style={styles.createAccountText}>to create account</Text>
                         <View style={styles.divider} />
                     </View>
 
-                    {/* Sign Up Button */}
                     <TouchableOpacity style={styles.signUpButton} onPress={() => {
                         router.push('/screens/signup');
                     }}>

@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import { router, Stack, usePathname } from "expo-router";
 import * as Font from 'expo-font';
 import Header from "../component/Header";
+import {AuthProvider} from "../context/AuthContext";
 
 // Prevent splash screen from hiding automatically
 SplashScreen.preventAutoHideAsync();
@@ -59,24 +60,26 @@ export default function RootLayout() {
   }
 
   return (
-      <SafeAreaView style={{ flex: 1 }} onLayout={onLayoutRootView}>
-        <Header  onProfilePress={() => router.navigate('/screens/signin')} showHeader={showHeader} />
-        <Stack screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen
-              name={'screens/signin'}
-              options={{
-                title: 'Sign In',
-                headerTitleAlign: 'center',
-                headerTitleStyle: {
-                  fontSize: 15,
-                  fontWeight: 'bold',
-                  fontFamily: 'Poppins-Regular',
-                },
-              }}
-          />
-        </Stack>
+      <AuthProvider>
+        <SafeAreaView style={{ flex: 1 }} onLayout={onLayoutRootView}>
+          <Header  onProfilePress={() => router.navigate('/screens/signin')} showHeader={showHeader} />
+          <Stack screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+            <Stack.Screen
+                name={'screens/signin'}
+                options={{
+                  title: 'Sign In',
+                  headerTitleAlign: 'center',
+                  headerTitleStyle: {
+                    fontSize: 15,
+                    fontWeight: 'bold',
+                    fontFamily: 'Poppins-Regular',
+                  },
+                }}
+            />
+          </Stack>
+        </SafeAreaView>
+      </AuthProvider>
 
-      </SafeAreaView>
   );
 }
