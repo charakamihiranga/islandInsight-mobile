@@ -1,7 +1,7 @@
 {
   "name": "islandinsight-mobile",
   "version": "1.0.0",
-  "main": "index.ts",
+  "main": "expo-router/entry",
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
@@ -10,16 +10,25 @@
   },
   "dependencies": {
     "@expo-google-fonts/poppins": "^0.3.0",
-    "expo": "~52.0.41",
+    "@react-native-async-storage/async-storage": "1.23.1",
+    "expo": "~52.0.46",
+    "expo-constants": "~17.0.8",
     "expo-font": "~13.0.4",
+    "expo-navigation-bar": "~4.0.9",
+    "expo-router": "~4.0.19",
     "expo-splash-screen": "~0.29.22",
     "expo-status-bar": "~2.0.1",
+    "firebase": "^11.6.0",
+    "firebase-admin": "^13.2.0",
     "react": "18.3.1",
-    "react-native": "0.76.7"
+    "react-native": "0.76.7",
+    "react-native-dotenv": "^3.4.11"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
+    "@types/firebase": "^2.4.32",
     "@types/react": "~18.3.12",
+    "@types/react-native-dotenv": "^0.2.2",
     "typescript": "^5.3.3"
   },
   "private": true
