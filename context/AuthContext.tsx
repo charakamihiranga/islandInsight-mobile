@@ -48,10 +48,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
             await AuthService.signup(email, password, username);
             setCurrentUser(null); // Wait for verification
         },
-        signInWithGoogle: async () => {
-            await AuthService.signInWithGoogle();
-            setCurrentUser(auth.currentUser);
-        },
         logout: async () => {
             await AuthService.logout();
             setCurrentUser(null);

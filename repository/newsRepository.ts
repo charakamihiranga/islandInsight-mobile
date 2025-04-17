@@ -1,9 +1,9 @@
 import {db} from "../config/firebaseConfig";
-import { limitToLast, onValue, orderByKey, query, ref } from "@firebase/database";
+import { limitToLast, onValue, orderByKey, query, ref, get } from "@firebase/database";
 import News from "../model/News";
 import {CategorizedNews} from "../model/CategorizedNews";
 
-const NEWS_API_KEY='newsAPI';
+const NEWS_API_KEY='NEWS_API_KEY';
 const newsRef =  ref(db, "news");
 export function getLatestNews(): Promise<News[]>{
     return new Promise((resolve, reject) => {
@@ -36,6 +36,33 @@ export function getLatestNews(): Promise<News[]>{
             }
         );
     });
+}
+
+export async function getNewsById(newsId: number): Promise<News | null> {
+    try {
+        const newsItemRef = ref(db, `news/${newsId}`);
+        const snapshot = await get(newsItemRef);
+
+        if (snapshot.exists()) {
+            const data = snapshot.val();
+            return new News(
+                newsId,
+                data.agency,
+                data.agencyLogoLink,
+                data.date,
+                data.imgLink,
+                data.link,
+                data.postContent,
+                data.time,
+                data.title
+            );
+        } else {
+            return null;
+        }
+    } catch (error) {
+        console.error(`Error fetching news with ID ${newsId}:`, error);
+        return null;
+    }
 }
 
 export function getAllLocalNews(): Promise<News[]> {

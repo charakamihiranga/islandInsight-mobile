@@ -1,22 +1,30 @@
 import React from 'react';
-import {Alert, FlatList, StyleSheet} from 'react-native';
+import { FlatList, StyleSheet } from 'react-native';
 import News from '../model/News';
 import NewsCard from './NewsCard';
+import { useRouter } from 'expo-router';
 
-function NewsCardGrid ({ news }: { news: News[] }) {
+function NewsCardGrid({ news }: { news: News[] }) {
+    const router = useRouter();
+
     return (
         <FlatList
             data={[...news].reverse().slice(2)}
             keyExtractor={(item) => item.id.toString()}
             numColumns={2}
-            renderItem={({ item, index }) => <NewsCard item={item} onPress={() => {
-                Alert.alert("News ID: ", `ID: ${item.id}`)
-            }} />}
+            renderItem={({ item }) => (
+                <NewsCard
+                    item={item}
+                    onPress={() => {
+                        router.push(`screens/view-news/${item.id}`);
+                    }}
+                />
+            )}
             showsVerticalScrollIndicator={false}
             contentContainerStyle={styles.gridContainer}
         />
     );
-};
+}
 
 const styles = StyleSheet.create({
     gridContainer: {

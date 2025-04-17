@@ -1,6 +1,7 @@
 import News from "../model/News";
 import { Alert, FlatList, StyleSheet, View } from "react-native";
 import LatestNewsCard from "./LatestNewsCard";
+import {router} from "expo-router";
 
 function LatestNewsCardGrid({ news }: { news: News[] }) {
     return (
@@ -12,7 +13,7 @@ function LatestNewsCardGrid({ news }: { news: News[] }) {
                     <LatestNewsCard
                         news={item}
                         onPress={() => {
-                            Alert.alert("News ID:", `ID: ${item.id}`);
+                            router.push(`screens/view-news/${item.id}`);
                         }}
                     />
                 )}

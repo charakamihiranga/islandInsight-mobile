@@ -1,4 +1,4 @@
-import { Alert, SafeAreaView } from 'react-native';
+import { SafeAreaView } from 'react-native';
 import * as SplashScreen from 'expo-splash-screen';
 import { useCallback, useEffect, useState } from "react";
 import { router, Stack, usePathname } from "expo-router";
@@ -52,7 +52,8 @@ export default function RootLayout() {
 
   // Hide header instantly when pathname updates
   useEffect(() => {
-    setShowHeader(pathname !== '/screens/signin' && pathname !== '/screens/signup');
+    setShowHeader(pathname !== '/screens/signin' && pathname !== '/screens/signup' &&
+        !pathname.startsWith('/screens/view-news') );
   }, [pathname]);
 
   if (!appIsReady) {
@@ -69,6 +70,18 @@ export default function RootLayout() {
                 name={'screens/signin'}
                 options={{
                   title: 'Sign In',
+                  headerTitleAlign: 'center',
+                  headerTitleStyle: {
+                    fontSize: 15,
+                    fontWeight: 'bold',
+                    fontFamily: 'Poppins-Regular',
+                  },
+                }}
+            />
+            <Stack.Screen
+                name={'screens/view-news/[id]'}
+                options={{
+                  title: 'News',
                   headerTitleAlign: 'center',
                   headerTitleStyle: {
                     fontSize: 15,

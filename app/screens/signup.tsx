@@ -6,7 +6,7 @@ import {useAuth} from "../../context/AuthContext";
 import {router} from "expo-router";
 
 function Signup() {
-    const {signup , signInWithGoogle } = useAuth();
+    const {signup } = useAuth();
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -30,7 +30,7 @@ function Signup() {
 
        }
     }
-    
+
 
     return (
         <View style={styles.container}>
